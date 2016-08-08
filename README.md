@@ -1,6 +1,6 @@
 # Jenkins JNLP slave Docker image
 
-[`jenkinsci/jnlp-slave`](https://hub.docker.com/r/qautomatron/docker-jnlp-maven-slave/)
+[`qautomatron/docker-jnlp-maven-slave`](https://hub.docker.com/r/qautomatron/docker-jnlp-maven-slave/)
 
 A [Jenkins](https://jenkins-ci.org) slave using JNLP to establish connection.
 
