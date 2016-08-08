@@ -1,4 +1,4 @@
-# Jenkins JNLP slave Docker image
+# Jenkins JNLP slave Docker image with Maven
 
 [`qautomatron/docker-jnlp-maven-slave`](https://hub.docker.com/r/qautomatron/docker-jnlp-maven-slave/)
 
