@@ -24,6 +24,8 @@ FROM jenkinsci/slave
 
 COPY jenkins-slave /usr/local/bin/jenkins-slave
 
+USER root
+
 # Install Maven
 
 ENV MAVEN_VERSION=3.3.9
@@ -44,5 +46,9 @@ RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/mave
 # add executables to path
 RUN update-alternatives --install "/usr/bin/mvn" "mvn" "/opt/mvn/bin/mvn" 1 && \
     update-alternatives --set "mvn" "/opt/mvn/bin/mvn"
+
+USER jenkins
+
+WORKDIR /home/jenkins
 
 ENTRYPOINT ["jenkins-slave"]
