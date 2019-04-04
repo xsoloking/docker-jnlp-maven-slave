@@ -1,6 +1,6 @@
 # The MIT License
 #
-#  Copyright (c) 2015, CloudBees, Inc.
+#  Copyright (c) 2015-2017, CloudBees, Inc.
 #
 #  Permission is hereby granted, free of charge, to any person obtaining a copy
 #  of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-FROM jenkinsci/slave
+FROM jenkins/slave:latest
 
 COPY jenkins-slave /usr/local/bin/jenkins-slave
 
@@ -28,7 +28,7 @@ USER root
 
 # Install Maven
 
-ENV MAVEN_VERSION=3.3.9
+ENV MAVEN_VERSION=3.6.0
 ENV MAVEN_HOME=/opt/mvn
 
 # change to tmp folder
@@ -48,7 +48,6 @@ RUN update-alternatives --install "/usr/bin/mvn" "mvn" "/opt/mvn/bin/mvn" 1 && \
     update-alternatives --set "mvn" "/opt/mvn/bin/mvn"
 
 USER jenkins
-
 WORKDIR /home/jenkins
 
 ENTRYPOINT ["jenkins-slave"]
