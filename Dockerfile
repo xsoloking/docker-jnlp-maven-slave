@@ -28,7 +28,7 @@ USER root
 
 # Install Maven
 
-ENV MAVEN_VERSION=3.6.0
+ENV MAVEN_VERSION=3.5.4
 ENV MAVEN_HOME=/opt/mvn
 
 # change to tmp folder
