@@ -24,6 +24,9 @@ FROM jenkins/slave:latest
 
 COPY jenkins-slave /usr/local/bin/jenkins-slave
 
+ARG DOCKER_VERSION=17.06.2~ce-0~debian
+ARG DC_VERSION=1.18.0
+
 USER root
 
 # Install Maven
@@ -46,6 +49,23 @@ RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/mave
 # add executables to path
 RUN update-alternatives --install "/usr/bin/mvn" "mvn" "/opt/mvn/bin/mvn" 1 && \
     update-alternatives --set "mvn" "/opt/mvn/bin/mvn"
+
+RUN apt-get update && \
+    apt-get install -qq -y --no-install-recommends \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg2 \
+      software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    apt-key fingerprint 0EBFCD88 && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" && \
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian stretch stable" && \
+    apt-get update && \
+    apt-get install -qq -y --no-install-recommends docker-ce=${DOCKER_VERSION} && \
+    curl -L https://github.com/docker/compose/releases/download/${DC_VERSION}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 USER jenkins
 WORKDIR /home/jenkins
